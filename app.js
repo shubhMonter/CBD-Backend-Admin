@@ -11,10 +11,12 @@ app.use(cors("http://localhost:4000"));
 const Home = require("./src/routes/home_route");
 const Shop = require("./src/routes/shop_route");
 const Category = require("./src/routes/category_route");
+const Blog = require("./src/routes/blog_route");
 
 app.use("/Home", Home);
 app.use("/Shop", Shop);
 app.use("/Category", Category);
+app.use("/Blog", Blog);
 const port = process.env.PORT || 4000;
 const server = app.listen(port, function () {
 	console.log(`Server listening on port ${port}`);
