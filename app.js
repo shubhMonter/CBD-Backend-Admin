@@ -17,7 +17,7 @@ app.use(
 		secret: "Bene",
 		credentialsRequired: true,
 		getToken: function fromHeaderOrQuerystring(req) {
-			console.log(req.headers);
+			// console.log(req.headers);
 			if (
 				req.headers.authorization &&
 				req.headers.authorization.split(" ")[0] === "Bearer"
@@ -26,11 +26,19 @@ app.use(
 			} else if (req.query && req.query.token) {
 				return req.query.token;
 			} else {
-				console.log("in else", req.headers.authorization);
+				console.log("in else", req.originalUrl);
 				return null;
 			}
 		},
-	}).unless({ path: ["/Auth/signIn", "/Auth/signUp"] })
+	}).unless({
+		path: [
+			"/Auth/signIn",
+			"/Auth/signUp",
+			"/Home/get",
+			"/Category/get",
+			"Shop/get",
+		],
+	})
 );
 
 const Home = require("./src/routes/home_route");
