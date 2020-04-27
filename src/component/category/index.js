@@ -23,7 +23,6 @@ const add = (req, res) => {
 
 const get = (req, res) => {
 	console.log("in get", req.body);
-
 	Category.findOne({ _id: "5ea20d590ead732d1afdc64e" })
 		.select("-_id -__v -createdAt -updatedAt")
 		.then((result) => {
