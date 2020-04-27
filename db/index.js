@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-
-mongoose.connect("mongodb://127.0.0.1:27017", {
+const url =
+	"mongodb+srv://bene:bene@cluster0-2zn80.mongodb.net/test?retryWrites=true&w=majority";
+mongoose.connect(url, {
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true,
