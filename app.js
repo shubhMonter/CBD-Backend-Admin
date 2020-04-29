@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(forms.array());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(cors("http://localhost:4000"));
+app.use(cors("http://localhost:5000"));
 
 app.use(
 	jwt({
@@ -36,7 +36,7 @@ app.use(
 			"/Auth/signUp",
 			"/Home/get",
 			"/Category/get",
-			"Shop/get",
+			"/Shop/get",
 		],
 	})
 );
@@ -54,7 +54,7 @@ app.use("/Category", Category);
 app.use("/Blog", Blog);
 app.use("/Image", Image);
 app.use("/Auth", Auth);
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, function () {
 	console.log(`Server listening on port ${port}`);
 });
