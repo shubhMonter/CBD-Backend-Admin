@@ -15,7 +15,7 @@ let storage = multer.diskStorage({
 		let name = req.body.imagName;
 		cb(
 			null,
-			name + ".png"
+			"image" + Date.now() + ".png"
 			// `${req.body.author}-${Date.now()}${path.extname(file.originalname)}`
 		);
 	},

@@ -4,15 +4,22 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
 	destination: "./public/uploads/",
-	filename: function (req, file, cb) {
-		cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+	filename: (req, file, cb) => {
+		console.log("body in file name", req.body);
+		let filename = file.originalname.split(".")[0];
+		let name = req.body.imageName;
+		cb(
+			null,
+			"image" + Date.now() + ".png"
+			// `${req.body.author}-${Date.now()}${path.extname(file.originalname)}`
+		);
 	},
 });
 
 const upload = multer({
 	storage: storage,
 	limits: { fileSize: 1000000 },
-}).single("myImage");
+}).any();
 
 const add = (req, res) => {
 	upload(req, res, (err) => {
@@ -20,9 +27,10 @@ const add = (req, res) => {
 		console.log("Request file ---", req.file); //Here you get file.
 		/*Now do where ever you want to do*/
 
-		console.log(req.body);
+		console.log(typeof req.body.tags[0]);
 		let tags = [];
-		if (typeof req.body.tags === "string") {
+		if (typeof req.body.tags[0] === "string") {
+			console.log("string");
 			tags = JSON.parse(req.body.tags);
 		} else {
 			tags = req.body.tags;
@@ -31,6 +39,7 @@ const add = (req, res) => {
 			...req.body,
 			tags,
 			author: req.body.author || "Editorial team",
+			image: req.file.path,
 		};
 		let data = new Blog(blogData);
 		data
@@ -111,10 +120,15 @@ const Delete = (req, res) => {
 };
 
 const getByType = (req, res) => {
+	console.log("in get type");
 	let pageNo = Number(req.body.pageNo) || 0;
 	let size = Number(req.body.size) || 10;
 	console.log(req.body.tag);
-	Blog.find({ tags: req.body.tag })
+	let query = {};
+	if (req.body.tag !== "All") {
+		query.tags = req.body.tag;
+	}
+	Blog.find(query)
 		.skip(pageNo * size)
 		.limit(size)
 		.then((result) => {
@@ -137,7 +151,7 @@ const getAll = (req, res) => {
 	let pageNo = Number(req.body.pageNo) || 0;
 	let size = Number(req.body.size) || 10;
 
-	Blog.find({})
+	Blog.find({ type: req.body.type })
 		.skip(pageNo * size)
 		.limit(size)
 		.then((result) => {

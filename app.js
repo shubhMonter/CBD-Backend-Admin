@@ -37,6 +37,7 @@ app.use(
 			"/Home/get",
 			"/Category/get",
 			"/Shop/get",
+			"/Blog/get/tag",
 		],
 	})
 );
