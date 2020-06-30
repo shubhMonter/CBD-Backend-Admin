@@ -2,7 +2,28 @@ const Home = require("./home.schema");
 
 const add = (req, res) => {
 	console.log(req.body);
-	const data = new Home(req.body);
+	let {
+		banner,
+		categorySlider,
+		thirdSection,
+		bundlesSlider,
+		fifthSection,
+	} = req.body;
+	if (typeof banner === "string") {
+		banner = JSON.parse(banner);
+		categorySlider = JSON.parse(categorySlider);
+		thirdSection = JSON.parse(thirdSection);
+		bundlesSlider = JSON.parse(bundlesSlider);
+		fifthSection = JSON.parse(fifthSection);
+	}
+
+	const data = new Home({
+		banner,
+		categorySlider,
+		thirdSection,
+		bundlesSlider,
+		fifthSection,
+	});
 	data
 		.save()
 		.then((result) => {
@@ -24,7 +45,7 @@ const add = (req, res) => {
 const get = (req, res) => {
 	console.log("in get", req.body);
 
-	Home.findOne({ _id: "5ea0b76f3ad92616f53700ae" })
+	Home.findOne({ _id: "5efa29968b708a207515e6ea" })
 		.select("-_id -__v -createdAt -updatedAt")
 		.then((result) => {
 			res.status(200).json({
@@ -43,15 +64,18 @@ const get = (req, res) => {
 };
 
 const update = (req, res) => {
+	// Object.keys(req.body).forEach((el) => {
+	// 	if (typeof req.body[el] === "string") {
+	// 		req.body[el] = JSON.parse(req.body[el]);
+	// 	}
+	// });
 	console.log("update", req.body);
-	let data;
-	if (typeof req.body.data === "string") data = JSON.parse(req.body.data);
-	else {
-		data = req.body.data;
+	let { data } = req.body;
+	if (typeof data === "string") {
+		data = JSON.parse(data);
 	}
-	console.log(data);
 
-	Home.findOneAndUpdate({ _id: "5ea0b76f3ad92616f53700ae" }, data, {
+	Home.findOneAndUpdate({ _id: "5efa29968b708a207515e6ea" }, data, {
 		new: true,
 	})
 		.select("-_id -__v -createdAt -updatedAt")

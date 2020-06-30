@@ -9,7 +9,7 @@ let Blog = new Schema(
 		author: { type: String, required: true },
 		reviewedBy: { type: Schema.Types.ObjectId, ref: "user" },
 		tags: [{ type: String }],
-		image: { type: String },
+		image: { type: String, default: "" },
 	},
 	{
 		timestamps: true,

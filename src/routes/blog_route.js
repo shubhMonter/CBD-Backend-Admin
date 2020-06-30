@@ -31,9 +31,9 @@ let upload = multer({
 		}
 		callback(null, true);
 	},
-	limits: {
-		fileSize: 420 * 150 * 200,
-	},
+	// limits: {
+	// 	fileSize: 420 * 150 * 200,
+	// },
 });
 
 router.post("/add", upload.any(), (req, res) => {
@@ -76,7 +76,7 @@ router.post("/add", upload.any(), (req, res) => {
 			});
 		});
 });
-router.post("/update", upload.single("image"), (req, res) => {
+router.post("/update", upload.any(), (req, res) => {
 	console.log("I am in the body");
 	console.log(req.body.heading, req.body.tags);
 	let tags = [];
