@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(forms.array());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(cors("http://localhost:5000"));
+app.use(cors(process.env.connect_url));
 
 app.use(
 	jwt({
