@@ -23,7 +23,7 @@ const add = (req, res) => {
 
 const get = (req, res) => {
 	console.log("in get", req.body);
-	Category.findOne({ _id: "5ea20d590ead732d1afdc64e" })
+	Category.findOne({ _id: "5f0b378856c82222c86d30b1" })
 		.select("-_id -__v -createdAt -updatedAt")
 		.then((result) => {
 			res.status(200).json({
@@ -50,7 +50,7 @@ const update = (req, res) => {
 	}
 	console.log(data);
 
-	Category.findOneAndUpdate({ _id: "5ea20d590ead732d1afdc64e" }, data, {
+	Category.findOneAndUpdate({ _id: "5f0b378856c82222c86d30b1" }, data, {
 		new: true,
 	})
 		.select("-_id -__v -createdAt -updatedAt")

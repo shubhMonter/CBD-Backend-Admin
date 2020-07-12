@@ -24,7 +24,7 @@ const add = (req, res) => {
 const get = (req, res) => {
 	console.log("in get", req.body);
 
-	Shop.findOne({ _id: "5ea1eb33e3921e1b2340cbfc" })
+	Shop.findOne({ _id: "5f0b3a8acc9ac433df99b037" })
 		.select("-_id -__v -createdAt -updatedAt")
 		.then((result) => {
 			res.status(200).json({
@@ -51,7 +51,7 @@ const update = (req, res) => {
 	}
 	console.log(data);
 
-	Shop.findOneAndUpdate({ _id: "5ea1eb33e3921e1b2340cbfc" }, data, {
+	Shop.findOneAndUpdate({ _id: "5f0b3a8acc9ac433df99b037" }, data, {
 		new: true,
 	})
 		.select("-_id -__v -createdAt -updatedAt")

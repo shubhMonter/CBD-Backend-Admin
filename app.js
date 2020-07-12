@@ -12,35 +12,35 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(cors(process.env.connect_url));
 
-app.use(
-	jwt({
-		secret: "Bene",
-		credentialsRequired: true,
-		getToken: function fromHeaderOrQuerystring(req) {
-			// console.log(req.headers);
-			if (
-				req.headers.authorization &&
-				req.headers.authorization.split(" ")[0] === "Bearer"
-			) {
-				return req.headers.authorization.split(" ")[1];
-			} else if (req.query && req.query.token) {
-				return req.query.token;
-			} else {
-				console.log("in else", req.originalUrl);
-				return null;
-			}
-		},
-	}).unless({
-		path: [
-			"/Auth/signIn",
-			"/Auth/signUp",
-			"/Home/get",
-			"/Category/get",
-			"/Shop/get",
-			"/Blog/get/tag",
-		],
-	})
-);
+// app.use(
+// 	jwt({
+// 		secret: "Bene",
+// 		credentialsRequired: true,
+// 		getToken: function fromHeaderOrQuerystring(req) {
+// 			// console.log(req.headers);
+// 			if (
+// 				req.headers.authorization &&
+// 				req.headers.authorization.split(" ")[0] === "Bearer"
+// 			) {
+// 				return req.headers.authorization.split(" ")[1];
+// 			} else if (req.query && req.query.token) {
+// 				return req.query.token;
+// 			} else {
+// 				console.log("in else", req.originalUrl);
+// 				return null;
+// 			}
+// 		},
+// 	}).unless({
+// 		path: [
+// 			"/Auth/signIn",
+// 			"/Auth/signUp",
+// 			"/Home/get",
+// 			"/Category/get",
+// 			"/Shop/get",
+// 			"/Blog/get/tag",
+// 		],
+// 	})
+// );
 
 const Home = require("./src/routes/home_route");
 const Shop = require("./src/routes/shop_route");
