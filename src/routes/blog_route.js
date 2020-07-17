@@ -94,7 +94,7 @@ router.post("/update", upload.any(), (req, res) => {
 	};
 	if (req.files.length > 0) {
 		console.log(req.files);
-		blogData["image"] = req.files[0].path;
+		blogData["image"] = req.files[0].filename;
 	} else {
 		delete blogData.image;
 	}

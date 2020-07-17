@@ -126,7 +126,7 @@ const getByType = (req, res) => {
 	console.log(req.body.tag);
 	let query = {};
 	if (req.body.tag !== "All") {
-		query.tags = req.body.tag;
+		query.tags = { $regex: new RegExp(`^${req.body.tag}$`), $options: 'i' };
 	}
 	Blog.find(query)
 		.skip(pageNo * size)
@@ -147,7 +147,7 @@ const getByType = (req, res) => {
 };
 
 const getAll = (req, res) => {
-	console.log("GetA;=ll", req.body);
+	console.log("GetAll", req.body);
 	let pageNo = Number(req.body.pageNo) || 0;
 	let size = Number(req.body.size) || 10;
 
@@ -155,6 +155,7 @@ const getAll = (req, res) => {
 		.skip(pageNo * size)
 		.limit(size)
 		.then((result) => {
+			console.log(result);
 			res.status(200).json({
 				status: true,
 				message: "Successfully fetched blogs",
