@@ -22,14 +22,31 @@ const add = (req, res) => {
 };
 
 const get = (req, res) => {
-	console.log("in get", req.body);
-	Category.findOne({ _id: "5f0b378856c82222c86d30b1" })
-		.select("-_id -__v -createdAt -updatedAt")
+
+	Category.find()
+		.select(" -__v -createdAt -updatedAt")
 		.then((result) => {
+
+			const data =result.map(i=>{
+					content ={
+						bannerTitle:i.bannerTitle,
+						title:i.title,
+						content:i.content,
+						bundleTitle:i.bundleTitle,
+						bundleContent:i.bundleContent,
+					}
+					cat={
+						id:i._id,
+						category:i.category
+					}
+					return {content,cat}
+				})
+				console.log(data);
 			res.status(200).json({
 				status: true,
 				message: "Added data successfully",
-				data: result,
+				data: [data[0].content],
+				categories: [data[0].cat],
 			});
 		})
 		.catch((err) => {
@@ -50,7 +67,7 @@ const update = (req, res) => {
 	}
 	console.log(data);
 
-	Category.findOneAndUpdate({ _id: "5f0b378856c82222c86d30b1" }, data, {
+	Category.findOneAndUpdate({ _id: req.params.id }, data, {
 		new: true,
 	})
 		.select("-_id -__v -createdAt -updatedAt")
