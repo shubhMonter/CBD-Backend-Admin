@@ -6,11 +6,14 @@ const cors = require("cors");
 var multer = require("multer");
 var forms = multer();
 const jwt = require("express-jwt");
-app.use(bodyParser.urlencoded({ extended: true }));
+// const category = require("./src/component/category/category.schema");
 // app.use(forms.array());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static("public"));
 app.use(cors(process.env.connect_url));
+
+// category.deleteMany({}, (err, data) => console.log("deleted"));
 
 // app.use(
 // 	jwt({
@@ -57,5 +60,5 @@ app.use("/Image", Image);
 app.use("/Auth", Auth);
 const port = process.env.PORT || 5000;
 const server = app.listen(port, function () {
-	console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
