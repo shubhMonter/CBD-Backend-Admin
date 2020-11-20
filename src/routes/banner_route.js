@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../component/banner");
+const controller = require("../component/Banner");
 
 router.get("/get", controller.get);
 router.post("/add", controller.add);
