@@ -27,6 +27,9 @@ let Home = new Schema(
     // 	content: { type: String },
     // 	btnText: { type: String },
     // },
+    logo: {
+      type: Object,
+    },
     banner: {
       type: Object,
     },
