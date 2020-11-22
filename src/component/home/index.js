@@ -45,7 +45,7 @@ const add = (req, res) => {
 const get = (req, res) => {
   console.log("in get", req.body);
 
-  Home.findOne({ _id: "5fac001a6041f51a78701a63" })
+  Home.findOne({ _id: "5fb93f0ba1015a3ef4c493c1" })
     .select("-_id -__v -createdAt -updatedAt")
     .then((result) => {
       console.log(result);
@@ -76,7 +76,7 @@ const update = (req, res) => {
     data = JSON.parse(data);
   }
 
-  Home.findOneAndUpdate({ _id: "5fac001a6041f51a78701a63" }, data, {
+  Home.findOneAndUpdate({ _id: "5fb93f0ba1015a3ef4c493c1" }, data, {
     new: true,
   })
     .select("-_id -__v -createdAt -updatedAt")
