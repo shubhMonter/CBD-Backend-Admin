@@ -31,7 +31,7 @@ let Home = new Schema(
       type: Object,
     },
     banner: {
-      type: Object,
+      type: Array,
     },
     categorySlider: {
       type: Object,

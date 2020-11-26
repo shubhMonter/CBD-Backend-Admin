@@ -48,7 +48,7 @@ const get = (req, res) => {
   Home.findOne({ _id: "5fb93f0ba1015a3ef4c493c1" })
     .select("-_id -__v -createdAt -updatedAt")
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(200).json({
         status: true,
         message: "Added data successfully",
@@ -56,7 +56,7 @@ const get = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       res.status(500).json({
         status: false,
         message: err,
@@ -70,7 +70,7 @@ const update = (req, res) => {
   // 		req.body[el] = JSON.parse(req.body[el]);
   // 	}
   // });
-  console.log("update", req.body);
+  // console.log("update", req.body);
   let { data } = req.body;
   if (typeof data === "string") {
     data = JSON.parse(data);
@@ -84,11 +84,11 @@ const update = (req, res) => {
       res.status(200).json({
         status: true,
         message: "Updated data successfully",
-        data: result,
+        // data: result,/
       });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       res.status(500).json({
         status: false,
         message: err,
