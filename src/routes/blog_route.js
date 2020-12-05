@@ -22,18 +22,18 @@ let storage = multer.diskStorage({
 });
 
 let upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
-      req.fileValidationError = "Forbidden extension";
-      return callback(null, false, req.fileValidationError);
-    }
-    callback(null, true);
-  },
-  // limits: {
-  // 	fileSize: 420 * 150 * 200,
-  // },
+	storage: storage,
+	fileFilter: function (req, file, callback) {
+		var ext = path.extname(file.originalname);
+		if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg" && ext !==".webp") {
+			req.fileValidationError = "Forbidden extension";
+			return callback(null, false, req.fileValidationError);
+		}
+		callback(null, true);
+	},
+	// limits: {
+	// 	fileSize: 420 * 150 * 200,
+	// },
 });
 
 router.post("/add", upload.any(), (req, res) => {
