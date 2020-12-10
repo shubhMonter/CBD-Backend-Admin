@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
 const controller = require("../component/banner");
 const path = require("path");
 const multer = require("multer");
@@ -35,9 +34,6 @@ let upload = multer({
   // 	fileSize: 420 * 150 * 200,
   // },
 });
-=======
-const controller = require("../component/Banner");
->>>>>>> 770d341926d7cbec5da103a65581176effb242f6
 
 router.get("/get", controller.get);
 router.post("/add", upload.any(), controller.add);
