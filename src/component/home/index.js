@@ -48,7 +48,7 @@ const get = (req, res) => {
   Home.findOne({ _id: "5fc0036f1901fb3cbc09b2a6" })
     .select("-_id -__v -createdAt -updatedAt")
     .then((result) => {
-      // console.log(result);
+      // console.log(result.logo);
       res.status(200).json({
         status: true,
         message: "Added data successfully",
@@ -64,27 +64,62 @@ const get = (req, res) => {
     });
 };
 
-const update = (req, res) => {
-  // Object.keys(req.body).forEach((el) => {
-  // 	if (typeof req.body[el] === "string") {
-  // 		req.body[el] = JSON.parse(req.body[el]);
-  // 	}
-  // });
-  // console.log("update", req.body);
-  let { data } = req.body;
-  if (typeof data === "string") {
-    data = JSON.parse(data);
+const update = async (req, res) => {
+  let section;
+  if (req.body.addBanner) {
+    section = "banner";
+  } else {
+    section = req.body.section;
+  }
+  let data;
+  if (req.files && req.files.length > 0 && req.body.addBanner) {
+    let home = await Home.findById("5fc0036f1901fb3cbc09b2a6");
+    data = [...home["banner"]];
+    const { title, content, btnText, hide } = req.body;
+    data.push({
+      title,
+      content,
+      btnText,
+      hide,
+      images: {
+        name: req.files[0].originalname,
+        src: req.files[0].path,
+      },
+    });
+  } else if (req.files && req.files.length > 0) {
+    let home = await Home.findById("5fc0036f1901fb3cbc09b2a6");
+    if (req.body.section === "banner") {
+      data = [...home[req.body.section]];
+      data[req.body.mainIndex].images = {
+        name: req.body.imageName,
+        src: req.files[0].path,
+      };
+    } else {
+      data = { ...home[req.body.section] };
+      data.images[req.body.index] = {
+        name: req.body.imageName,
+        src: req.files[0].path,
+      };
+    }
+  } else {
+    data = req.body.data;
   }
 
-  Home.findOneAndUpdate({ _id: "5fc0036f1901fb3cbc09b2a6" }, data, {
-    new: true,
-  })
+  // console.log(data);
+
+  Home.findOneAndUpdate(
+    { _id: "5fc0036f1901fb3cbc09b2a6" },
+    { [section]: data },
+    {
+      new: true,
+    }
+  )
     .select("-_id -__v -createdAt -updatedAt")
     .then((result) => {
       res.status(200).json({
         status: true,
         message: "Updated data successfully",
-        // data: result,/
+        data: result,
       });
     })
     .catch((err) => {
