@@ -1,8 +1,24 @@
 const Banner = require("./banner.schema");
 
 const add = (req, res) => {
-  //   console.log(req.body);
-  const data = new Banner(req.body);
+  const fetchedData = { ...req.body };
+  fetchedData.image = {};
+  fetchedData.logo = {};
+  req.files.forEach((file) => {
+    if (file.fieldname === "imageFile") {
+      fetchedData.image = {
+        name: file.originalname,
+        src: file.path,
+      };
+    } else {
+      fetchedData.logo = {
+        name: file.originalname,
+        src: file.path,
+      };
+    }
+  });
+
+  const data = new Banner(fetchedData);
   data
     .save()
     .then((result) => {
@@ -58,14 +74,36 @@ const getByName = (req, res) => {
     });
 };
 
-const update = (req, res) => {
-  Banner.findOneAndUpdate({ _id: req.body._id }, req.body, {
+const update = async (req, res) => {
+  let data;
+  if (req.files) {
+    let category = await Banner.findById(req.body.id);
+    data = { ...category._doc };
+    console.log(data);
+    if (parseInt(req.body.index) === 0) {
+      console.log("reached here");
+      data.image = {
+        name: req.files[0].originalname,
+        src: req.files[0].path,
+      };
+    } else {
+      data.logo = {
+        name: req.files[0].originalname,
+        src: req.files[0].path,
+      };
+    }
+  } else {
+    data = { ...req.body.data };
+  }
+  // console.log(data);
+  Banner.findOneAndUpdate({ _id: req.body.id }, data, {
     new: true,
   })
     .then((result) => {
       return res.status(200).json({
         status: true,
         message: "Updated data successfully",
+        data: result,
       });
     })
     .catch((err) => {
