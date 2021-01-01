@@ -43,12 +43,9 @@ const add = (req, res) => {
 };
 
 const get = (req, res) => {
-  console.log("in get", req.body);
-
   Home.findOne({ _id: "5fc0036f1901fb3cbc09b2a6" })
     .select("-_id -__v -createdAt -updatedAt")
     .then((result) => {
-      // console.log(result.logo);
       res.status(200).json({
         status: true,
         message: "Added data successfully",
@@ -65,6 +62,7 @@ const get = (req, res) => {
 };
 
 const update = async (req, res) => {
+  console.log(req.files);
   let section;
   if (req.body.addBanner) {
     section = "banner";
@@ -97,7 +95,10 @@ const update = async (req, res) => {
     } else {
       data = { ...home[req.body.section] };
       data.images[req.body.index] = {
-        name: req.body.imageName,
+        name:
+          req.body.section === "logo"
+            ? req.files[0].filename
+            : req.body.imageName,
         src: req.files[0].path,
       };
     }
