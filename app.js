@@ -18,6 +18,35 @@ app.use(cors(process.env.connect_url));
 // Sublearn.find({}).then(async (result) => {
 //   console.log(result);
 // });
+
+
+const data = {
+  secondSection: {
+    title: "<h3>Trusted, easy, and affordable.</h3>",
+    bigTitle: "<h1>that’s where we come in!</h1>",
+    hide: false,
+    images: [
+      {
+        name: "Banner-Image-1.png",
+        src: "public/Banner-Image-1.png",
+      },
+    ],
+  },
+  fourthSection: {
+    title: '<p class="heading">HONEST INGREDIENTS AND PROCESS</p>',
+    content:
+      '<div class="honest-container">\n<div class="img-wrapper">\n<img src="/images/organic.svg" class="honest-svg"/>\n<p class="img-head-text">ORGANICALLY GROWN</p>\n<p class="img-sub-text">The extracts used in our products are obtained from organically grown hemp devoid of any harmful chemical inputs.</p>\n</div>\n<div class="img-wrapper">\n<img src="/images/thc.svg" class="honest-svg"/>\n<p class="img-head-text">0.0% THC</p>\n<p class="img-sub-text">We take great care to ensure that the products reaching you are completely free of any THC. Only the goodness of hemp for you.</p>\n</div>\n<div class="img-wrapper">\n<img src="/images/vegan.svg" class="honest-svg"/>\n<p class="img-head-text">VEGAN PRODUCTS</p>\n<p class="img-sub-text">We care about your dietary preferences. Hence, our wide range of vegan products infused with the goodness of CBD is curated keeping you in mind.</p>\n</div>\n</div>',
+    hide: false,
+    images: [
+      {
+        name: "Banner-Image-1.png",
+        src: "public/Banner-Image-1.png",
+      },
+    ],
+  },
+};
+
+
 // home.create(data).then((result) => console.log(result._id));
 
 // home
