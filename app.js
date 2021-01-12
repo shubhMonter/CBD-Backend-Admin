@@ -4,22 +4,13 @@ const bodyParser = require("body-parser");
 const db = require("./db");
 const cors = require("cors");
 var multer = require("multer");
-var forms = multer();
 const jwt = require("express-jwt");
-const {
-  // Learn,
-  Sublearn,
-  Questionnaire,
-} = require("./src/component/learn/learn.schema");
-
-const home = require("./src/component/home/home.schema");
-
-// app.use(forms.array());
+const compression = require('compression');
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static("public"));
 app.use(cors(process.env.connect_url));
-
+//app.use(compression());
 // Questionnaire.find({}).then((result) => {
 //   console.log(result);
 // });
@@ -27,6 +18,7 @@ app.use(cors(process.env.connect_url));
 // Sublearn.find({}).then(async (result) => {
 //   console.log(result);
 // });
+
 
 const data = {
   secondSection: {
@@ -53,6 +45,7 @@ const data = {
     ],
   },
 };
+
 
 // home.create(data).then((result) => console.log(result._id));
 

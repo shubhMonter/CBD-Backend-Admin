@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../component/banner");
+const controller = require("../component/Banner");
 const path = require("path");
 const multer = require("multer");
 
@@ -24,7 +24,7 @@ let upload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg"  && ext !== ".webp") {
       req.fileValidationError = "Forbidden extension";
       return callback(null, false, req.fileValidationError);
     }
