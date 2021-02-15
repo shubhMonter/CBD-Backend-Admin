@@ -5,7 +5,7 @@ const db = require("./db");
 const cors = require("cors");
 var multer = require("multer");
 const jwt = require("express-jwt");
-const compression = require('compression');
+const compression = require("compression");
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(express.static("public"));
@@ -18,7 +18,6 @@ app.use(cors(process.env.connect_url));
 // Sublearn.find({}).then(async (result) => {
 //   console.log(result);
 // });
-
 
 const data = {
   secondSection: {
@@ -45,7 +44,6 @@ const data = {
     ],
   },
 };
-
 
 // home.create(data).then((result) => console.log(result._id));
 

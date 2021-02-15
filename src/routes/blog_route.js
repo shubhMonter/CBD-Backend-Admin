@@ -22,18 +22,23 @@ let storage = multer.diskStorage({
 });
 
 let upload = multer({
-	storage: storage,
-	fileFilter: function (req, file, callback) {
-		var ext = path.extname(file.originalname);
-		if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg" && ext !==".webp") {
-			req.fileValidationError = "Forbidden extension";
-			return callback(null, false, req.fileValidationError);
-		}
-		callback(null, true);
-	},
-	// limits: {
-	// 	fileSize: 420 * 150 * 200,
-	// },
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if (
+      ext !== ".png" &&
+      ext !== ".jpg" &&
+      ext !== ".jpeg" &&
+      ext !== ".webp"
+    ) {
+      req.fileValidationError = "Forbidden extension";
+      return callback(null, false, req.fileValidationError);
+    }
+    callback(null, true);
+  },
+  // limits: {
+  // 	fileSize: 420 * 150 * 200,
+  // },
 });
 
 router.post("/add", upload.any(), (req, res) => {
@@ -96,7 +101,7 @@ router.post("/update", upload.any(), (req, res) => {
   };
   if (req.files.length > 0) {
     console.log(req.files);
-    blogData["image"] = req.files[0].filename;
+    blogData["image"] = req.files[0].path;
   } else {
     blogData.image = "";
   }
