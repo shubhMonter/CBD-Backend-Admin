@@ -91,6 +91,7 @@ const Image = require("./src/routes/image_route");
 const Auth = require("./src/routes/auth_route");
 const Banner = require("./src/routes/banner_route");
 const Learn = require("./src/routes/learn_route");
+const Seo = require("./src/routes/seo_routes");
 
 app.use("/Home", Home);
 app.use("/Shop", Shop);
@@ -100,6 +101,7 @@ app.use("/Image", Image);
 app.use("/Auth", Auth);
 app.use("/Banner", Banner);
 app.use("/Learn", Learn);
+app.use("/Seo",Seo);
 const port = process.env.PORT || 5000;
 const server = app.listen(port, function () {
   console.log(`Server listening on port ${port}`);

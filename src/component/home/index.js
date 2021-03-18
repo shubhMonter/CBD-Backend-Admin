@@ -8,6 +8,7 @@ const add = (req, res) => {
     thirdSection,
     bundlesSlider,
     fifthSection,
+    tags
   } = req.body;
   if (typeof banner === "string") {
     banner = JSON.parse(banner);
@@ -17,12 +18,16 @@ const add = (req, res) => {
     fifthSection = JSON.parse(fifthSection);
   }
 
+  if(typeof tags == "string" ){
+    tags = tags.split(",");
+  }
   const data = new Home({
     banner,
     categorySlider,
     thirdSection,
     bundlesSlider,
     fifthSection,
+    tags
   });
   data
     .save()
@@ -103,7 +108,12 @@ const update = async (req, res) => {
       };
     }
   } else {
-    data = req.body.data;
+    if(req.body.section == "tags"){
+      data = req.body.data.split(",")
+    }else{
+      data = req.body.data;
+    }
+   
   }
 
   // console.log(data);

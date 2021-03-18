@@ -49,7 +49,11 @@ const update = (req, res) => {
 	else {
 		data = req.body.data;
 	}
-	console.log(data);
+	if(data.tags){
+		if(typeof data.tags == "string"){
+			data.tags = data.tags.split(",");
+		}
+	}
 
 	Shop.findOneAndUpdate({ _id: "5f0b3a8acc9ac433df99b037" }, data, {
 		new: true,

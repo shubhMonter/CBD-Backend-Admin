@@ -11,6 +11,7 @@ let Shop = new Schema(
 		shop: {
 			type: Object,
 		},
+		tags:[String]
 	},
 	{
 		timestamps: true,
