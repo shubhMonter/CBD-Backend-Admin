@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
     let name = req.body.imagName;
     cb(
       null,
-      "image" + Date.now() + ".png"
+      "image" + Date.now() +".webp"
       // `${req.body.author}-${Date.now()}${path.extname(file.originalname)}`
     );
   },
@@ -24,7 +24,7 @@ let upload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
     var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg"  && ext !== ".webp") {
+    if (ext != ".webp") {
       req.fileValidationError = "Forbidden extension";
       return callback(null, false, req.fileValidationError);
     }
